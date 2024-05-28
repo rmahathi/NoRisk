@@ -9,7 +9,7 @@ Smart door systems also facilitate seamless integration with broader smart home 
 <<<<<<< HEAD
 
 ##Overview
-<p align="justify>
+<p align="justify">
 The Smart Door project showcased here introduces an innovative solution utilisingThe system integrates a servo motor, Bluetooth module, push-button, and onboard LED to control and monitor door access seamlessly. Its core functionality lies in its ability to open the door upon delivering a bluetooth instruction message. Here, a Servo Motor is placed on the door. When the bluetooth module receives an input, it triggers the VSD Squadron Mini to activate the Servo Motor, thereby initiating the door-opening mechanism. This technology-driven approach offers a hands-free and user-friendly solution for creating a secure and convenient door access solution. 
 
 Servo Motor (Pin 6): Acts as the locking mechanism, controlled by the microcontroller.
