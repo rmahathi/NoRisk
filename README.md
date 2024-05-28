@@ -5,7 +5,7 @@ In an age where technology seamlessly integrates with our daily lives, the conce
 
 Smart door systems represent the convergence of advanced technologies such as the <i>Internet of Things (IoT)</i>, <i>artificial intelligence (AI)</i>, and <i>wireless communication</i>, designed to provide homeowners with a heightened sense of security, unparalleled convenience and sophisticated control over access to their properties. Traditional keys can be easily lost, stolen, or duplicated, posing a significant security risk. Smart door systems eliminate this vulnerability by reducing the need for physical key exchanges.
 
-Smart door systems also facilitate seamless integration with broader smart home ecosystems. They can communicate with other devices such as lighting systems, thermostats, and home security systems to create a cohesive and automated living environment. 
+Smart door systems also facilitate seamless integration with broader smart home ecosystems. They can communicate with other devices such as lighting systems, thermostats, and home security systems to create a cohesive and automated living environment. </p>
 
 ## Overview
 <p align="justify">
@@ -18,3 +18,29 @@ The Smart Door project showcased here introduces an innovative solution utilisin
 </ul>
 Users can control the door lock via their smartphone using Bluetooth, or manually using the onboard button. The onboard LED provides visual feedback, making the system user-friendly and reliable. This project exemplifies the practical application of IoT technology in home security and automation.
 </p>
+
+## Components required with Bill of Materials
+| Item                   | Quantity | Description                                                   | Links to Products                                      |
+|------------------------|----------|---------------------------------------------------------------|---------------------------------------------------|
+| VSD Squadron Mini      | 1        | Microcontroller board                                        | [VSD Squadron Mini ](https://pages.razorpay.com/vsdsqmnMAY24)           |
+| Servo Motor            | 1        | Standard servo motor (e.g., SG90)                            | [SG90 Servo Motor](https://amzn.in/d/bPAGDrt)       |
+| Bluetooth HC-05 Module | 1        | Bluetooth module for serial communication                    | [Bluetooth HC-05](https://amzn.in/d/8OtBQpe)        |
+| Jumper Wires           | 1 set    | Male-to-male and female-to-male jumper wires                 | [Jumper Wires](https://amzn.in/d/abTh8bo)           |
+| Micro USB Cable        | 1        | For programming and power supply                             | [Micro USB Cable](https://amzn.in/d/9b3ttSo)        |
+
+## Table for Pin Connections
+| Component            | VSD Squadron Mini Pin | Description                                             |
+|----------------------|-----------------------|---------------------------------------------------------|
+| Servo Signal         | Pin 6                 | Servo motor's control signal pin                        |
+| Servo VCC            | 5V (or other suitable voltage) | Servo motor's power supply                        |
+| Servo GND            | GND                   | Servo motor's ground                                    |
+| Bluetooth RXD        | Pin 3                 | Bluetooth module's RXD pin (connect directly to 3.3V logic) |
+| Bluetooth TXD        | Pin 4                 | Bluetooth module's TXD pin (connect directly to 5V logic) |
+| Bluetooth GND        | GND                   | Bluetooth module's ground pin                           |
+| Bluetooth VCC        | 3.3V                  | Bluetooth module's 3.3V pin (connect to microcontroller's 3.3V output pin) |
+| Bluetooth State      | Pin 7                 | Bluetooth module's State pin (indicates connection status) |
+| Onboard LED          | LED_BUILTIN           | Onboard LED for status indication                       |
+
+## Pinout Diagram
+![image](https://github.com/rmahathi/NoRisk/assets/167225765/0c6fc036-0b37-4cd8-8482-b11fd92a4d7a)
+
