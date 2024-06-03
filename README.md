@@ -11,12 +11,11 @@ Smart door systems also facilitate seamless integration with broader smart home 
 <p align="justify">
 The Smart Door project showcased here introduces an innovative solution utilising a servo motor, Bluetooth module, push-button, and onboard LED to control and monitor door access. Its functionality lies in its ability to open the door upon delivering a bluetooth instruction message. When the bluetooth module receives an input, it triggers the VSD Squadron Mini to activate the Servo Motor, thereby initiating the door-opening mechanism. This technology-driven approach offers a hands-free and user-friendly solution for creating a secure and convenient door access solution. 
 <ul>
-<li><b>Servo Motor (Pin 6)</b>: Acts as the locking mechanism, controlled by the microcontroller.</li>
-<li><b>Bluetooth Module (Pins 3, 4, 7, GND, 5V)</b>: Enables wireless communication between the door system and a user’s smartphone for remote control and Bluetooth module's State pin indicates connection status.</li>
-<li><b>Onboard Push-Button (Pin 2)</b>: Provides manual control of the lock, allowing toggling between locked and unlocked states.</li>
+<li><b>Servo Motor (Pin PC6)</b>: Acts as the locking mechanism, controlled by the microcontroller.</li>
+<li><b>Bluetooth Module (Pins PD6, PD7, PC7, GND, 3.3V)</b>: Enables wireless communication between the door system and a user’s smartphone for remote control and Bluetooth module's State pin indicates connection status.</li>
 <li><b>Onboard LED (LED_BUILTIN)</b>: Displays the system status, indicating locked/unlocked states.</li>
 </ul>
-Users can control the door lock via their smartphone using Bluetooth, or manually using the onboard button. The onboard LED provides visual feedback, making the system user-friendly and reliable. This project exemplifies the practical application of IoT technology in home security and automation.
+Users can control the door lock via their smartphone using Bluetooth. The onboard LED provides visual feedback, making the system user-friendly and reliable. This project exemplifies the practical application of IoT technology in home security and automation.
 </p>
 
 ## Components required with Bill of Materials
