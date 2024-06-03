@@ -1,21 +1,19 @@
-# NoRisk
+# NoRisk - Bluetooth automated smart access
 ## Introduction
 <p align="justify">
-In an age where technology seamlessly integrates with our daily lives, the concept of a <i>smart home</i> has evolved from a futuristic vision to a tangible reality. Central to this transformation are smart door systems, which epitomise the blend of convenience, security, and innovation. These systems, which were once a speculative idea in the realm of science fiction, now offer practical solutions to everyday challenges, enhancing the way we interact with our living spaces.
+In an age where technology seamlessly integrates with our daily lives, the concept of a <i>smart home</i> has evolved from a futuristic vision to a tangible reality. Central to this transformation is the "Bluetooth Automated Smart Access" system, which embodies the blend of convenience, security, and innovation. Leveraging the capabilities of a VSD Squadron Mini board, a Bluetooth module, and a servo motor, this project offers practical solutions to everyday challenges, enhancing the way we interact with our living spaces.
 
-Smart door systems represent the convergence of advanced technologies such as the <i>Internet of Things (IoT)</i>, <i>artificial intelligence (AI)</i>, and <i>wireless communication</i>, designed to provide homeowners with a heightened sense of security, unparalleled convenience and sophisticated control over access to their properties. Traditional keys can be easily lost, stolen, or duplicated, posing a significant security risk. Smart door systems eliminate this vulnerability by reducing the need for physical key exchanges.
-
-Smart door systems also facilitate seamless integration with broader smart home ecosystems. They can communicate with other devices such as lighting systems, thermostats, and home security systems to create a cohesive and automated living environment. </p>
+Traditional methods of manual operation can be cumbersome, tiresome and inefficient. This technology eliminates such challenges by allowing users to manage various applications through their smartphones, reducing the need for physical interaction. Bluetooth automated smart access can be utilized in a wide range of applications, from controlling water taps to managing lighting and appliances, smart door and security applications and for enhancing efficiency and simplifying everyday tasks across diverse environments. </p>
 
 ## Overview
 <p align="justify">
-The Smart Door project showcased here introduces an innovative solution utilising a servo motor, Bluetooth module, push-button, and onboard LED to control and monitor door access. Its functionality lies in its ability to open the door upon delivering a bluetooth instruction message. When the bluetooth module receives an input, it triggers the VSD Squadron Mini to activate the Servo Motor, thereby initiating the door-opening mechanism. This technology-driven approach offers a hands-free and user-friendly solution for creating a secure and convenient door access solution. 
+The project showcased here introduces an innovative solution utilising a servo motor, Bluetooth module, push-button, and onboard LED to control and monitor door access. Its functionality lies in its ability to initiate open-close mechanism upon delivering a bluetooth instruction message. When the bluetooth module receives an input, it triggers the VSD Squadron Mini to activate the Servo Motor, thereby initiating this mechanism. This technology-driven approach offers a hands-free and user-friendly solution for creating a secure and convenient tool access solution. 
 <ul>
 <li><b>Servo Motor (Pin PC6)</b>: Acts as the locking mechanism, controlled by the microcontroller.</li>
-<li><b>Bluetooth Module (Pins PD6, PD7, PC7, GND, 3.3V)</b>: Enables wireless communication between the door system and a user’s smartphone for remote control and Bluetooth module's State pin indicates connection status.</li>
+<li><b>Bluetooth Module (Pins PD6, PD7, PC7, GND, 3.3V)</b>: Enables wireless communication between the system and a user’s smartphone for remote control and Bluetooth module's State pin indicates connection status.</li>
 <li><b>Onboard LED (LED_BUILTIN)</b>: Displays the system status, indicating locked/unlocked states.</li>
 </ul>
-Users can control the door lock via their smartphone using Bluetooth. The onboard LED provides visual feedback, making the system user-friendly and reliable. This project exemplifies the practical application of IoT technology in home security and automation.
+Users can control the device via their smartphone using Bluetooth. The onboard LED provides visual feedback, making the system user-friendly and reliable. This project exemplifies the practical application of IoT technology in home security and automation.
 </p>
 
 ## Components required with Bill of Materials
@@ -146,6 +144,11 @@ void setServoAngle(int angle) {
 ```
 ## Demo Video
 https://github.com/rmahathi/NoRisk/assets/167225765/7a30f59d-298e-453f-b36c-02a275bf6081
+
+## Application Video - Aqua Control System
+https://github.com/rmahathi/NoRisk/assets/167225765/da27fde9-fa0c-4feb-89d8-a6438b0a9bd8
+
+
 
 
 
