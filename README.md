@@ -489,9 +489,9 @@ bool debounceProtection() {
 
 ```
 ## Hardware Fault Injections
+### Disrupting Servo Motor using external Arduino 5V Power Source
+![image](https://github.com/rmahathi/NoRisk/blob/main/assets/fault_arduino.png)
 
-<h3>Disrupting Servo Motor using external Arduino 5V Power Source </h3>
-![image](https://github.com/rmahathi/NoRisk/assets/167225765/b325a314-1d12-409b-9268-ac65b9c4823d)
 <h4>Fault 1 Video </h4>
 <h4>Protection against Fault 1</h4>
 <h3>Inducing fault in HC-05 using potentiometer to corrupt receiver signal (RX) </h3>
