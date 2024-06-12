@@ -496,7 +496,7 @@ bool debounceProtection() {
 <h4>Protection against Fault 1</h4>
 
 #### Inducing fault in HC-05 using potentiometer to corrupt receiver signal (RX)
-![image](https://github.com/rmahathi/NoRisk/blob/main/assets/fault_arduino.png)
+![image](https://github.com/rmahathi/NoRisk/blob/main/assets/fault_pot.png)
 
 <h4>Fault 2 Video </h4>
 <h4>Protection against Fault 2</h4>
