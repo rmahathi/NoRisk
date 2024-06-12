@@ -490,17 +490,14 @@ bool debounceProtection() {
 ```
 ## Hardware Fault Injections
 
-<ol> 
-  <h3><li>Disrupting Servo Motor using external Arduino 5V Power Source </li>
-  <img src=""C:\Users\rmaha\Desktop\one.jpeg"">
-    <h4>Fault 1 Video </h4>
-    <h4>Protection against Fault 1</h4>
-  <h3><li>Inducing fault in HC-05 using potentiometer to corrupt receiver signal (RX)</li>
-    ![image](https://github.com/rmahathi/NoRisk/assets/167225765/a87db193-eaa0-4910-a4e5-870202f2aa58)
-    <h4>Fault 2 Video </h4>
-    <h4>Protection against Fault 2</h4>
-    ![image](https://github.com/rmahathi/NoRisk/assets/167225765/cb8fd229-8bc3-4c8b-b521-f6bbe03f0c55)
-    <h4>Protection against Fault 2 Video </h4>
-  <h3><li>Disrupting Bluetooth Signal using EM Waves </li>
-</ol>
+<h3>Disrupting Servo Motor using external Arduino 5V Power Source </h3>
+![one](https://github.com/rmahathi/NoRisk/assets/167225765/93969a3d-3df0-408b-848f-d7a352998d0f)
+
+<h4>Fault 1 Video </h4>
+<h4>Protection against Fault 1</h4>
+<h3>nducing fault in HC-05 using potentiometer to corrupt receiver signal (RX) </h3>
+<h4>Fault 2 Video </h4>
+<h4>Protection against Fault 2</h4>
+<h4>Protection against Fault 2 Video </h4>
+<h3>Disrupting Bluetooth Signal using EM Waves </h3>
 
