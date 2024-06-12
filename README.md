@@ -489,20 +489,27 @@ bool debounceProtection() {
 
 ```
 ## Hardware Fault Injections
-#### Disrupting Servo Motor using external Arduino 5V Power Source
+## 1. Disrupting Servo Motor using external Arduino 5V Power Source
 ![image](https://github.com/rmahathi/NoRisk/blob/main/assets/fault_arduino.png)
+Arduino board here is given as an <b>external power supply<b> (additional 5V) to the control of the servo motor. Since this is outside the working power range for the SG90 motor, the circuitry is either damaged or the device shuts itself down to protect its internal wiring, hence simulating a fault in the system. 
 
-<h4>Fault 1 Video </h4>
-<h4>Protection against Fault 1</h4>
+### Fault Video 
+https://github.com/rmahathi/NoRisk/assets/167225765/b8338c50-487b-4b26-b91f-dd89b6624a81
 
-#### Inducing fault in HC-05 using potentiometer to corrupt receiver signal (RX)
+### Protection against Fault
+This fault can be protected by ensuring a safe enclosure where access is denied to manipulate the input voltage levels to the servo motor.
+
+## 2. Inducing fault in HC-05 using potentiometer to corrupt receiver signal (RX)
+Another method is to inject noise into the signal lines of the HC-05 module. This can be done by connecting the potentiometer to the RX or TX lines. Connect the middle pin of the potentiometer to the RX pin of the HC-05 module, one of the outer pins of the potentiometer to a stable 5V power source and the other outer pin to GND. Adjust the potentiometer to vary the voltage on the RX pin, simulating noise or signal degradation to observe how the HC-05 module handles the noisy signal and it affects communication with the microcontroller.
+
 ![image](https://github.com/rmahathi/NoRisk/blob/main/assets/fault_pot.png)
 
-<h4>Fault 2 Video </h4>
+### Fault Video 
 
-#### Protection against Fault 2
+### Protection against Fault
 ![image](https://github.com/rmahathi/NoRisk/blob/main/assets/protect_fault_pot.png)
 
-<h4>Protection against Fault 2 Video </h4>
-<h3>Disrupting Bluetooth Signal using EM Waves </h3>
+### Protection against Fault 2 Video 
+
+## 3. Disrupting Bluetooth Signal using EM Waves 
 
