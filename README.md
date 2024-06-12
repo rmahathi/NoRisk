@@ -492,11 +492,14 @@ bool debounceProtection() {
 
 <ol> 
   <h3><li>Disrupting Servo Motor using external Arduino 5V Power Source </li>
+    ![image](https://github.com/rmahathi/NoRisk/assets/167225765/ce3f1fac-fd94-432a-bde1-01fa47b035f3)
     <h4>Fault 1 Video </h4>
     <h4>Protection against Fault 1</h4>
   <h3><li>Inducing fault in HC-05 using potentiometer to corrupt receiver signal (RX)</li>
+    ![image](https://github.com/rmahathi/NoRisk/assets/167225765/a87db193-eaa0-4910-a4e5-870202f2aa58)
     <h4>Fault 2 Video </h4>
     <h4>Protection against Fault 2</h4>
+    ![image](https://github.com/rmahathi/NoRisk/assets/167225765/91a2cb63-3c18-44aa-b249-56ffeb38bad1)
     <h4>Protection against Fault 2 Video </h4>
   <h3><li>Disrupting Bluetooth Signal using EM Waves </li>
 </ol>
