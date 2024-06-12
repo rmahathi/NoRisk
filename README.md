@@ -148,7 +148,356 @@ https://github.com/rmahathi/NoRisk/assets/167225765/7a30f59d-298e-453f-b36c-02a2
 ## Application Video - Aqua Control System
 https://github.com/rmahathi/NoRisk/assets/167225765/da27fde9-fa0c-4feb-89d8-a6438b0a9bd8
 
+## Application Video - Railway Gate Modulator 
+
+# Fault Injection
+
+## Software Fault Injections
+
+<ol> 
+  <h3><li>Simulate faultCondition </li>
+  <h3><li>Simulate rebootSystem </li>
+</ol>
+
+## Code for Software Fault Injection
+```
+// Define the pins using port names
+#define MOTOR_PIN PC6 // Pin to which the servo motor is connected
+#define BLUETOOTH_STATE_PIN PC7
+#define LED_PIN LED_BUILTIN
+
+#define BLUETOOTH_RX_PIN PD6  // Onboard RX pin
+#define BLUETOOTH_TX_PIN PD7  // Onboard TX pin
+
+bool doorLocked = true; // Flag to track the door lock state
+bool faultCondition = false; // Flag to simulate a fault condition
+unsigned long lastRebootCheck = 0; // Time of the last reboot check
+const unsigned long rebootCheckInterval = 10000; // Check for reboot every 10 seconds
+
+// Function prototypes
+void checkBluetooth();
+void openDoor(int openDelay = 1000);
+void closeDoor();
+void lockDoor();
+void setServoAngle(int angle);
+void rebootSystem();
+
+void setup() {
+  Serial.begin(9600);
+  delay(100); // delay to ensure serial connection is established
+  while (!Serial) {
+    ; // Wait for serial port to connect. Needed for native USB port only
+  }
+  Serial.println("System Initialized");
+
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BLUETOOTH_STATE_PIN, INPUT);
+
+  pinMode(MOTOR_PIN, OUTPUT); // Set the motor pin as an output
+
+  randomSeed(analogRead(0)); // Initialize random seed
+  
+  lockDoor(); // Lock the door initially
+}
+
+void loop() {
+  // Check for fault condition
+  if (faultCondition) {
+    Serial.println("Fault Detected! System is locking the door.");
+    lockDoor();
+    digitalWrite(LED_PIN, LOW); // Turn off the LED to indicate fault
+    return; // Skip the rest of the loop
+  }
+
+  // Check Bluetooth connection status
+  if (digitalRead(BLUETOOTH_STATE_PIN) == HIGH) {
+    checkBluetooth();
+  } else {
+    Serial.println("Bluetooth not connected");
+    // Handle Bluetooth disconnection here (e.g., close the door)
+    if (!doorLocked) {
+      closeDoor();
+    }
+  }
+
+  // Check if it's time to randomly reboot
+  if (millis() - lastRebootCheck > rebootCheckInterval) {
+    lastRebootCheck = millis();
+    if (random(0, 100) < 10) { // 10% chance to reboot
+      Serial.println("Random reboot triggered!");
+      rebootSystem();
+    }
+  }
+}
+
+void checkBluetooth() {
+  if (Serial.available()) {
+    char command = Serial.read();
+    if (command == 'O') {  // Command to open the door
+      openDoor();
+    } else if (command == 'C') {  // Command to close the door
+      closeDoor();
+    } else if (command == 'F') {  // Command to simulate a fault
+      faultCondition = true;
+      Serial.println("Fault simulation command received");
+    }
+  }
+}
+
+void openDoor(int openDelay) {
+  Serial.println("Access Granted");
+  digitalWrite(LED_PIN, HIGH);
+
+  // Set PWM signal to open the door
+  setServoAngle(90); // Assuming 90 degrees to open the door
+  delay(openDelay); // Keep door open for the specified delay
+}
+
+void closeDoor() {
+  Serial.println("Door Closing");
+  digitalWrite(LED_PIN, LOW);
+
+  // Set PWM signal to close the door
+  setServoAngle(0); // Assuming 0 degrees to close the door
+  doorLocked = true; // Update door lock state
+}
+
+void lockDoor() {
+  doorLocked = true; // Update door lock state
+  setServoAngle(0); // Initially lock the door by setting servo to 0 degrees
+}
+
+// Function to set the servo angle
+void setServoAngle(int angle) {
+  // Constants for the servo control
+  const int minPulseWidth = 544;  // Minimum pulse width in microseconds
+  const int maxPulseWidth = 2400; // Maximum pulse width in microseconds
+  const int refreshInterval = 20000; // Refresh interval in microseconds (20 ms)
+
+  // Map the angle to the pulse width
+  int pulseWidth = map(angle, 0, 180, minPulseWidth, maxPulseWidth);
+
+  // Generate the PWM signal on PC6
+  digitalWrite(MOTOR_PIN, HIGH);
+  delayMicroseconds(pulseWidth);
+  digitalWrite(MOTOR_PIN, LOW);
+
+  // Wait for the remainder of the refresh interval
+  delayMicroseconds(refreshInterval - pulseWidth);
+}
+
+void rebootSystem() {
+  // Simulate a system reboot by resetting variables and re-initializing
+  Serial.println("Rebooting system...");
+  doorLocked = true;
+  faultCondition = false;
+  lastRebootCheck = millis();
+
+  setup(); // Call setup to re-initialize the system
+}
+
+```
+## Software Fault Protection
+<ol>
+<li><b><i>Authorization:</i></b> Added a verifyAuthorization function that prompts the user to enter an authorization code before critical commands are processed. </li>
+<li><b><i>Debounce Protection:</i></b> Added a debounceProtection function to ensure commands aren't processed too frequently.  </li>
+<li><b><i>Command Checks:</i></b> Wrapped critical commands (openDoor, closeDoor, and setting faultCondition) with authorization and debounce checks.  </li> 
+</ol>
+These protections ensure that only authorized users can issue critical commands, and that these commands can't be spammed to disrupt the system.
 
 
+## Code for Software Fault Protection
+```
+// Define the pins using port names
+#define MOTOR_PIN PC6 // Pin to which the servo motor is connected
+#define BLUETOOTH_STATE_PIN PC7
+#define LED_PIN LED_BUILTIN
 
+#define BLUETOOTH_RX_PIN PD6  // Onboard RX pin
+#define BLUETOOTH_TX_PIN PD7  // Onboard TX pin
+
+bool doorLocked = true; // Flag to track the door lock state
+bool faultCondition = false; // Flag to simulate a fault condition
+unsigned long lastRebootCheck = 0; // Time of the last reboot check
+const unsigned long rebootCheckInterval = 10000; // Check for reboot every 10 seconds
+const char authorizedCode[] = "1234"; // Example authorization code
+unsigned long lastCommandTime = 0; // Time of the last received command
+const unsigned long commandInterval = 5000; // Minimum interval between commands in milliseconds
+
+// Function prototypes
+void checkBluetooth();
+void openDoor(int openDelay = 1000);
+void closeDoor();
+void lockDoor();
+void setServoAngle(int angle);
+void rebootSystem();
+bool verifyAuthorization();
+bool debounceProtection();
+
+void setup() {
+  Serial.begin(9600);
+  while (!Serial) {
+    ; // Wait for serial port to connect. Needed for native USB port only
+  }
+  Serial.println("System Initialized");
+
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BLUETOOTH_STATE_PIN, INPUT);
+
+  pinMode(MOTOR_PIN, OUTPUT); // Set the motor pin as an output
+
+  randomSeed(analogRead(0)); // Initialize random seed
+  
+  lockDoor(); // Lock the door initially
+}
+
+void loop() {
+  // Check for fault condition
+  if (faultCondition) {
+    Serial.println("Fault Detected! System is locking the door.");
+    lockDoor();
+    digitalWrite(LED_PIN, LOW); // Turn off the LED to indicate fault
+    return; // Skip the rest of the loop
+  }
+
+  // Check Bluetooth connection status
+  if (digitalRead(BLUETOOTH_STATE_PIN) == HIGH) {
+    checkBluetooth();
+  } else {
+    Serial.println("Bluetooth not connected");
+    // Handle Bluetooth disconnection here (e.g., close the door)
+    if (!doorLocked) {
+      closeDoor();
+    }
+  }
+
+  // Check if it's time to randomly reboot
+  if (millis() - lastRebootCheck > rebootCheckInterval) {
+    lastRebootCheck = millis();
+    if (random(0, 100) < 10) { // 10% chance to reboot
+      Serial.println("Random reboot triggered!");
+      rebootSystem();
+    }
+  }
+}
+
+void checkBluetooth() {
+  if (Serial.available()) {
+    char command = Serial.read();
+    if (command == 'O' && debounceProtection()) {  // Command to open the door
+      if (verifyAuthorization()) {
+        openDoor();
+      } else {
+        Serial.println("Unauthorized command attempt.");
+      }
+    } else if (command == 'C' && debounceProtection()) {  // Command to close the door
+      if (verifyAuthorization()) {
+        closeDoor();
+      } else {
+        Serial.println("Unauthorized command attempt.");
+      }
+    } else if (command == 'F' && debounceProtection()) {  // Command to simulate a fault
+      if (verifyAuthorization()) {
+        faultCondition = true;
+        Serial.println("Fault simulation command received");
+      } else {
+        Serial.println("Unauthorized command attempt.");
+      }
+    }
+  }
+}
+
+void openDoor(int openDelay) {
+  Serial.println("Access Granted");
+  digitalWrite(LED_PIN, HIGH);
+
+  // Set PWM signal to open the door
+  setServoAngle(90); // Assuming 90 degrees to open the door
+  delay(openDelay); // Keep door open for the specified delay
+}
+
+void closeDoor() {
+  Serial.println("Door Closing");
+  digitalWrite(LED_PIN, LOW);
+
+  // Set PWM signal to close the door
+  setServoAngle(0); // Assuming 0 degrees to close the door
+  doorLocked = true; // Update door lock state
+}
+
+void lockDoor() {
+  doorLocked = true; // Update door lock state
+  setServoAngle(0); // Initially lock the door by setting servo to 0 degrees
+}
+
+// Function to set the servo angle
+void setServoAngle(int angle) {
+  // Constants for the servo control
+  const int minPulseWidth = 544;  // Minimum pulse width in microseconds
+  const int maxPulseWidth = 2400; // Maximum pulse width in microseconds
+  const int refreshInterval = 20000; // Refresh interval in microseconds (20 ms)
+
+  // Map the angle to the pulse width
+  int pulseWidth = map(angle, 0, 180, minPulseWidth, maxPulseWidth);
+
+  // Generate the PWM signal on PC6
+  digitalWrite(MOTOR_PIN, HIGH);
+  delayMicroseconds(pulseWidth);
+  digitalWrite(MOTOR_PIN, LOW);
+
+  // Wait for the remainder of the refresh interval
+  delayMicroseconds(refreshInterval - pulseWidth);
+}
+
+void rebootSystem() {
+  // Simulate a system reboot by resetting variables and re-initializing
+  Serial.println("Rebooting system...");
+  doorLocked = true;
+  faultCondition = false;
+  lastRebootCheck = millis();
+
+  setup(); // Call setup to re-initialize the system
+}
+
+// Function to verify authorization
+bool verifyAuthorization() {
+  Serial.println("Enter authorization code:");
+  while (!Serial.available()) {
+    // Wait for the user to enter the authorization code
+  }
+  String inputCode = Serial.readString();
+  inputCode.trim(); // Remove any leading/trailing whitespace
+
+  if (inputCode == authorizedCode) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Function for debounce protection
+bool debounceProtection() {
+  unsigned long currentTime = millis();
+  if (currentTime - lastCommandTime > commandInterval) {
+    lastCommandTime = currentTime;
+    return true;
+  } else {
+    Serial.println("Command ignored due to debounce protection.");
+    return false;
+  }
+}
+
+```
+## Hardware Fault Injections
+
+<ol> 
+  <h3><li>Disrupting Servo Motor using external Arduino 5V Power Source </li>
+    <h4>Fault 1 Video </h4>
+    <h4>Protection against Fault 1</h4>
+  <h3><li>Inducing fault in HC-05 using potentiometer to corrupt receiver signal (RX)</li>
+    <h4>Fault 2 Video </h4>
+    <h4>Protection against Fault 2</h4>
+    <h4>Protection against Fault 2 Video </h4>
+  <h3><li>Disrupting Bluetooth Signal using EM Waves </li>
+</ol>
 
