@@ -499,7 +499,10 @@ bool debounceProtection() {
 ![image](https://github.com/rmahathi/NoRisk/blob/main/assets/fault_pot.png)
 
 <h4>Fault 2 Video </h4>
-<h4>Protection against Fault 2</h4>
+
+#### Protection against Fault 2
+![image](https://github.com/rmahathi/NoRisk/blob/main/assets/protect_fault_pot.png)
+
 <h4>Protection against Fault 2 Video </h4>
 <h3>Disrupting Bluetooth Signal using EM Waves </h3>
 
