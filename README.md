@@ -491,16 +491,16 @@ bool debounceProtection() {
 ## Hardware Fault Injections
 ## 1. Disrupting Servo Motor using external Arduino 5V Power Source
 ![image](https://github.com/rmahathi/NoRisk/blob/main/assets/fault_arduino.png)
-Arduino board here is given as an <b>external power supply<b> (additional 5V) to the control of the servo motor. Since this is outside the working power range for the SG90 motor, the circuitry is either damaged or the device shuts itself down to protect its internal wiring, hence simulating a fault in the system. 
+<b>Arduino board here is given as an external power supply (additional 5V) to the control of the servo motor. Since this is outside the working power range for the SG90 motor, the circuitry is either damaged or the device shuts itself down to protect its internal wiring, hence simulating a fault in the system.</b>
 
 ### Fault Video 
 https://github.com/rmahathi/NoRisk/assets/167225765/b8338c50-487b-4b26-b91f-dd89b6624a81
 
 ### Protection against Fault
-This fault can be protected by ensuring a safe enclosure where access is denied to manipulate the input voltage levels to the servo motor.
+<b>This fault can be protected by ensuring a safe enclosure where access is denied to manipulate the input voltage levels to the servo motor.</b>
 
 ## 2. Inducing fault in HC-05 using potentiometer to corrupt receiver signal (RX)
-Another method is to inject noise into the signal lines of the HC-05 module. This can be done by connecting the potentiometer to the RX or TX lines. Connect the middle pin of the potentiometer to the RX pin of the HC-05 module, one of the outer pins of the potentiometer to a stable 5V power source and the other outer pin to GND. Adjust the potentiometer to vary the voltage on the RX pin, simulating noise or signal degradation to observe how the HC-05 module handles the noisy signal and it affects communication with the microcontroller.
+<b>Another method is to inject noise into the signal lines of the HC-05 module. This can be done by connecting the potentiometer to the RX or TX lines. Connect the middle pin of the potentiometer to the RX pin of the HC-05 module, one of the outer pins of the potentiometer to a stable 5V power source and the other outer pin to GND. Adjust the potentiometer to vary the voltage on the RX pin, simulating noise or signal degradation to observe how the HC-05 module handles the noisy signal and it affects communication with the microcontroller.</b>
 
 ![image](https://github.com/rmahathi/NoRisk/blob/main/assets/fault_pot.png)
 
