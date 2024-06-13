@@ -154,10 +154,11 @@ https://github.com/rmahathi/NoRisk/assets/167225765/da27fde9-fa0c-4feb-89d8-a643
 
 ## Software Fault Injections
 
-<ol> 
-  <h3><li>Simulate faultCondition </li>
-  <h3><li>Simulate rebootSystem </li>
-</ol>
+### Simulate faultCondition 
+https://github.com/rmahathi/NoRisk/assets/167225765/8379ad33-3e89-4466-859a-74f2f7f2bdb2
+
+### Simulate rebootSystem 
+https://github.com/rmahathi/NoRisk/assets/167225765/459a5489-2908-43f7-9b18-a64042be673d
 
 ## Code for Software Fault Injection
 ```
