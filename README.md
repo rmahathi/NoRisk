@@ -505,11 +505,13 @@ Another method is to inject noise into the signal lines of the HC-05 module. Thi
 ![image](https://github.com/rmahathi/NoRisk/blob/main/assets/fault_pot.png)
 
 ### Fault Video 
+https://github.com/rmahathi/NoRisk/assets/167225765/d67c9edb-c340-44e6-890b-044e5dc13b89
 
 ### Protection against Fault
 ![image](https://github.com/rmahathi/NoRisk/blob/main/assets/protect_fault_pot.png)
 
-### Protection against Fault 2 Video 
+### Protection against Fault Video 
+https://github.com/rmahathi/NoRisk/assets/167225765/1c16051b-25c2-4bd5-9305-b34dc8ee5da0
 
 ## 3. Disrupting Bluetooth Signal using EM Waves 
 ![image](https://github.com/rmahathi/NoRisk/blob/main/assets/em_fault.png)
