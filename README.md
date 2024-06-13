@@ -173,7 +173,7 @@ https://github.com/rmahathi/NoRisk/assets/167225765/459a5489-2908-43f7-9b18-a640
 bool doorLocked = true; // Flag to track the door lock state
 bool faultCondition = false; // Flag to simulate a fault condition
 unsigned long lastRebootCheck = 0; // Time of the last reboot check
-const unsigned long rebootCheckInterval = 10000; // Check for reboot every 10 seconds
+const unsigned long rebootCheckInterval = 1000; // Check for reboot every 1 second
 
 // Function prototypes
 void checkBluetooth();
@@ -205,8 +205,7 @@ void loop() {
   // Check for fault condition
   if (faultCondition) {
     Serial.println("Fault Detected! System is locking the door.");
-    lockDoor();
-    digitalWrite(LED_PIN, LOW); // Turn off the LED to indicate fault
+    lockDoor(); // Lock the door immediately
     return; // Skip the rest of the loop
   }
 
@@ -238,12 +237,12 @@ void checkBluetooth() {
       openDoor();
     } else if (command == 'C') {  // Command to close the door
       closeDoor();
-    } else if (command == 'F') {  // Command to simulate a fault
+    } else if ((command >= 'A' && command <= 'Z') && command != 'O' && command != 'C') {  // Command to simulate a fault
       faultCondition = true;
       Serial.println("Fault simulation command received");
     }
   }
-}
+} 
 
 void openDoor(int openDelay) {
   Serial.println("Access Granted");
@@ -321,7 +320,8 @@ bool doorLocked = true; // Flag to track the door lock state
 bool faultCondition = false; // Flag to simulate a fault condition
 unsigned long lastRebootCheck = 0; // Time of the last reboot check
 const unsigned long rebootCheckInterval = 10000; // Check for reboot every 10 seconds
-const char authorizedCode[] = "1234"; // Example authorization code
+const char authorizedCode = 'A'; // Example authorization code
+bool authorized = false; // Flag to indicate if the user is authorized
 unsigned long lastCommandTime = 0; // Time of the last received command
 const unsigned long commandInterval = 5000; // Minimum interval between commands in milliseconds
 
@@ -332,11 +332,12 @@ void closeDoor();
 void lockDoor();
 void setServoAngle(int angle);
 void rebootSystem();
-bool verifyAuthorization();
+bool verifyAuthorization(char command);
 bool debounceProtection();
 
 void setup() {
   Serial.begin(9600);
+  delay(100); // Delay to ensure serial connection is established
   while (!Serial) {
     ; // Wait for serial port to connect. Needed for native USB port only
   }
@@ -356,8 +357,7 @@ void loop() {
   // Check for fault condition
   if (faultCondition) {
     Serial.println("Fault Detected! System is locking the door.");
-    lockDoor();
-    digitalWrite(LED_PIN, LOW); // Turn off the LED to indicate fault
+    lockDoor(); // Lock the door immediately
     return; // Skip the rest of the loop
   }
 
@@ -385,24 +385,24 @@ void loop() {
 void checkBluetooth() {
   if (Serial.available()) {
     char command = Serial.read();
-    if (command == 'O' && debounceProtection()) {  // Command to open the door
-      if (verifyAuthorization()) {
-        openDoor();
+    if (!authorized) {
+      if (verifyAuthorization(command)) {
+        authorized = true;
+        Serial.println("Authorization successful.");
       } else {
         Serial.println("Unauthorized command attempt.");
       }
-    } else if (command == 'C' && debounceProtection()) {  // Command to close the door
-      if (verifyAuthorization()) {
-        closeDoor();
-      } else {
-        Serial.println("Unauthorized command attempt.");
-      }
-    } else if (command == 'F' && debounceProtection()) {  // Command to simulate a fault
-      if (verifyAuthorization()) {
-        faultCondition = true;
-        Serial.println("Fault simulation command received");
-      } else {
-        Serial.println("Unauthorized command attempt.");
+    } else {
+      if ((command == 'O' || command == 'C' || (command >= 'B' && command <= 'Z')) && debounceProtection()) {
+        if (command == 'O') {  // Command to open the door
+          openDoor();
+        } else if (command == 'C') {  // Command to close the door
+          closeDoor();
+        } else {  // Command to simulate a fault
+          faultCondition = true;
+          Serial.println("Fault simulation command received");
+        }
+        authorized = false; // Reset authorization after a command is executed
       }
     }
   }
@@ -456,20 +456,14 @@ void rebootSystem() {
   doorLocked = true;
   faultCondition = false;
   lastRebootCheck = millis();
+  authorized = false;
 
   setup(); // Call setup to re-initialize the system
 }
 
 // Function to verify authorization
-bool verifyAuthorization() {
-  Serial.println("Enter authorization code:");
-  while (!Serial.available()) {
-    // Wait for the user to enter the authorization code
-  }
-  String inputCode = Serial.readString();
-  inputCode.trim(); // Remove any leading/trailing whitespace
-
-  if (inputCode == authorizedCode) {
+bool verifyAuthorization(char command) {
+  if (command == authorizedCode) {
     return true;
   } else {
     return false;
@@ -518,4 +512,3 @@ https://github.com/rmahathi/NoRisk/assets/167225765/1c16051b-25c2-4bd5-9305-b34d
 Electromagnetic Interference (EMI) can significantly disrupt the functioning of wireless communication modules like the HC-05 Bluetooth module. EMI can cause disruptions in the Bluetooth signal, leading to data corruption, intermittent connections, or complete communication failure. The noise introduced by EMI can lead to an increase in the error rate of the transmitted and received data. The HC-05 module might behave erratically due to EMI, causing unexpected resets, incorrect data processing, or failure to connect to paired devices.
 
 ### Protection against Fault
-
