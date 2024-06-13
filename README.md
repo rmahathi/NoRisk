@@ -501,9 +501,8 @@ https://github.com/rmahathi/NoRisk/assets/167225765/b8338c50-487b-4b26-b91f-dd89
 <b>This fault can be protected by ensuring a safe enclosure where access is denied to manipulate the input voltage levels to the servo motor.</b>
 
 ## 2. Inducing fault in HC-05 using potentiometer to corrupt receiver signal (RX)
-<b>Another method is to inject noise into the signal lines of the HC-05 module. This can be done by connecting the potentiometer to the RX or TX lines. Connect the middle pin of the potentiometer to the RX pin of the HC-05 module, one of the outer pins of the potentiometer to a stable 5V power source and the other outer pin to GND. Adjust the potentiometer to vary the voltage on the RX pin, simulating noise or signal degradation to observe how the HC-05 module handles the noisy signal and it affects communication with the microcontroller.</b>
-
 ![image](https://github.com/rmahathi/NoRisk/blob/main/assets/fault_pot.png)
+<b>Another method is to inject noise into the signal lines of the HC-05 module. This can be done by connecting the potentiometer to the RX or TX lines. Connect the middle pin of the potentiometer to the RX pin of the HC-05 module, one of the outer pins of the potentiometer to a stable 5V power source and the other outer pin to GND. Adjust the potentiometer to vary the voltage on the RX pin, simulating noise or signal degradation to observe how the HC-05 module handles the noisy signal and it affects communication with the microcontroller.</b>
 
 ### Fault Video 
 https://github.com/rmahathi/NoRisk/assets/167225765/d67c9edb-c340-44e6-890b-044e5dc13b89
@@ -516,3 +515,7 @@ https://github.com/rmahathi/NoRisk/assets/167225765/1c16051b-25c2-4bd5-9305-b34d
 
 ## 3. Disrupting Bluetooth Signal using EM Waves 
 ![image](https://github.com/rmahathi/NoRisk/blob/main/assets/em_fault.png)
+Electromagnetic Interference (EMI) can significantly disrupt the functioning of wireless communication modules like the HC-05 Bluetooth module. EMI can cause disruptions in the Bluetooth signal, leading to data corruption, intermittent connections, or complete communication failure. The noise introduced by EMI can lead to an increase in the error rate of the transmitted and received data. The HC-05 module might behave erratically due to EMI, causing unexpected resets, incorrect data processing, or failure to connect to paired devices.
+
+### Protection against Fault
+
