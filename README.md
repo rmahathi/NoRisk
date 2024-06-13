@@ -318,9 +318,14 @@ These protections ensure that only authorized users can issue critical commands,
 
 bool doorLocked = true; // Flag to track the door lock state
 bool faultCondition = false; // Flag to simulate a fault condition
-unsigned long lastRebootCheck = 0; // Time of the last reboot check
-const unsigned long rebootCheckInterval = 10000; // Check for reboot every 10 seconds
-const char authorizedCode = 'A'; // Example authorization code
+unsigned long lastRebootTime = 0; // Time of the last reboot
+const unsigned long rebootInterval = 60000; // Reboot every 60 seconds 
+
+// Counter for controlling reboots
+unsigned long loopCounter = 0;
+const unsigned long rebootThreshold = 6000; // Reboot after 6000 loops 
+
+const String authorizedCode = "OK"; // Example authorization code
 bool authorized = false; // Flag to indicate if the user is authorized
 unsigned long lastCommandTime = 0; // Time of the last received command
 const unsigned long commandInterval = 5000; // Minimum interval between commands in milliseconds
@@ -332,12 +337,12 @@ void closeDoor();
 void lockDoor();
 void setServoAngle(int angle);
 void rebootSystem();
-bool verifyAuthorization(char command);
+bool verifyAuthorization(String command);
 bool debounceProtection();
 
 void setup() {
   Serial.begin(9600);
-  delay(100); // Delay to ensure serial connection is established
+  delay(100); // delay to ensure serial connection is established
   while (!Serial) {
     ; // Wait for serial port to connect. Needed for native USB port only
   }
@@ -349,11 +354,17 @@ void setup() {
   pinMode(MOTOR_PIN, OUTPUT); // Set the motor pin as an output
 
   randomSeed(analogRead(0)); // Initialize random seed
-  
+
+  // Initialize the last reboot time
+  lastRebootTime = millis();
+
   lockDoor(); // Lock the door initially
 }
 
 void loop() {
+  // Increment loop counter
+  loopCounter++;
+
   // Check for fault condition
   if (faultCondition) {
     Serial.println("Fault Detected! System is locking the door.");
@@ -372,19 +383,18 @@ void loop() {
     }
   }
 
-  // Check if it's time to randomly reboot
-  if (millis() - lastRebootCheck > rebootCheckInterval) {
-    lastRebootCheck = millis();
-    if (random(0, 100) < 10) { // 10% chance to reboot
-      Serial.println("Random reboot triggered!");
-      rebootSystem();
-    }
+  // Check if it's time to reboot based on loop counter
+  if (loopCounter >= rebootThreshold) {
+    Serial.println("Rebooting system...");
+    rebootSystem();
   }
 }
 
 void checkBluetooth() {
   if (Serial.available()) {
-    char command = Serial.read();
+    String command = Serial.readString();
+    command.trim(); // Remove any leading/trailing whitespace
+
     if (!authorized) {
       if (verifyAuthorization(command)) {
         authorized = true;
@@ -393,10 +403,10 @@ void checkBluetooth() {
         Serial.println("Unauthorized command attempt.");
       }
     } else {
-      if ((command == 'O' || command == 'C' || (command >= 'B' && command <= 'Z')) && debounceProtection()) {
-        if (command == 'O') {  // Command to open the door
+      if ((command == "O" || command == "C" || (command >= "A" && command <= "Z")) && debounceProtection()) {
+        if (command == "O") {  // Command to open the door
           openDoor();
-        } else if (command == 'C') {  // Command to close the door
+        } else if (command == "C") {  // Command to close the door
           closeDoor();
         } else {  // Command to simulate a fault
           faultCondition = true;
@@ -411,16 +421,13 @@ void checkBluetooth() {
 void openDoor(int openDelay) {
   Serial.println("Access Granted");
   digitalWrite(LED_PIN, HIGH);
-
   // Set PWM signal to open the door
   setServoAngle(90); // Assuming 90 degrees to open the door
-  delay(openDelay); // Keep door open for the specified delay
 }
 
 void closeDoor() {
   Serial.println("Door Closing");
   digitalWrite(LED_PIN, LOW);
-
   // Set PWM signal to close the door
   setServoAngle(0); // Assuming 0 degrees to close the door
   doorLocked = true; // Update door lock state
@@ -451,23 +458,17 @@ void setServoAngle(int angle) {
 }
 
 void rebootSystem() {
-  // Simulate a system reboot by resetting variables and re-initializing
-  Serial.println("Rebooting system...");
+  // Perform actions to save critical state before rebooting
   doorLocked = true;
   faultCondition = false;
-  lastRebootCheck = millis();
-  authorized = false;
-
-  setup(); // Call setup to re-initialize the system
+  loopCounter = 0;
+  lastRebootTime = millis(); // Update last reboot time
+  // Code to reset the microcontroller or perform software reset
 }
 
 // Function to verify authorization
-bool verifyAuthorization(char command) {
-  if (command == authorizedCode) {
-    return true;
-  } else {
-    return false;
-  }
+bool verifyAuthorization(String command) {
+  return command == authorizedCode;
 }
 
 // Function for debounce protection
