@@ -156,9 +156,20 @@ https://github.com/rmahathi/NoRisk/assets/167225765/da27fde9-fa0c-4feb-89d8-a643
 
 ### Simulate faultCondition 
 https://github.com/rmahathi/NoRisk/assets/167225765/8379ad33-3e89-4466-859a-74f2f7f2bdb2
+<ul>
+<li> "faultCondition" is a boolean flag initialized to false. It's used to simulate a fault state in the system. </li>
+<li> The fault condition is triggered by a Bluetooth command within the checkBluetooth() function. </li>
+<li> Any single character command between 'A' and 'Z' (excluding 'O' and 'C') will set the faultCondition flag to true. </li>
+<li> This fault locks the door and skips the rest of the loop when detected, deeming any further inputs null and void. </li>
+</ul>
 
 ### Simulate rebootSystem 
 https://github.com/rmahathi/NoRisk/assets/167225765/459a5489-2908-43f7-9b18-a64042be673d
+<ul>
+<li> "rebootSystem()" is a function that simulates a system reboot by resetting specific variables and calling setup() to reinitialize the system. </li>
+<li> The reboot is randomly triggered based on a timer within the loop() function. </li>
+<li> Every second (rebootCheckInterval), the system checks if a random event should trigger a reboot with a 10% chance. </li>
+</ul>
 
 ## Code for Software Fault Injection
 ```
@@ -304,7 +315,6 @@ void rebootSystem() {
 <li><b><i>Command Checks:</i></b> Wrapped critical commands (openDoor, closeDoor, and setting faultCondition) with authorization and debounce checks.  </li> 
 </ol>
 These protections ensure that only authorized users can issue critical commands, and that these commands can't be spammed to disrupt the system.
-
 
 ## Code for Software Fault Protection
 ```
