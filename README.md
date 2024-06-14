@@ -504,6 +504,7 @@ https://github.com/rmahathi/NoRisk/assets/167225765/d67c9edb-c340-44e6-890b-044e
 
 ### Protection against Fault
 ![image](https://github.com/rmahathi/NoRisk/blob/main/assets/protect_fault_pot.png)
+The capacitors added in this circuit act as a low pass filter which smoothen out any irregularities in the voltage fluctuations caused by varying the voltages levels in the potentiometer. The functioning of the circuit is hence optimised and the noise injected is managed efficiently.
 
 ### Protection against Fault Video 
 https://github.com/rmahathi/NoRisk/assets/167225765/1c16051b-25c2-4bd5-9305-b34dc8ee5da0
