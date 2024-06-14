@@ -151,6 +151,14 @@ https://github.com/rmahathi/NoRisk/assets/167225765/da27fde9-fa0c-4feb-89d8-a643
 ## Application Video - Railway Gate Modulator 
 
 # Fault Injection
+Fault injection is a testing technique used to evaluate the robustness and error-handling capabilities of a system by deliberately introducing faults or errors into it. The goal is to observe how the system behaves under fault conditions and to ensure that it can handle these situations gracefully. This technique is commonly used in software, hardware, and system testing to identify and fix potential weaknesses or vulnerabilities.
+
+## Objectives
+<ul>
+<li><b>Identify Weaknesses:</b> Detect vulnerabilities and weak points in the system that could lead to failures. </li>
+<li><b>Improve Robustness:</b> Enhance the system's ability to handle faults gracefully without crashing or producing incorrect results. </li>
+<li><b>Validate Error Handling:</b> Ensure that error handling mechanisms and failover processes work correctly under fault conditions. </li>
+</ul>
 
 ## Software Fault Injections
 
