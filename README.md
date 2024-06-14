@@ -160,6 +160,8 @@ Fault injection is a testing technique used to evaluate the robustness and error
 <li><b>Validate Error Handling:</b> Ensure that error handling mechanisms and failover processes work correctly under fault conditions. </li>
 </ul>
 
+## Challenges 
+
 ## Software Fault Injections
 
 ### Simulate faultCondition 
