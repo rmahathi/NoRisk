@@ -322,7 +322,8 @@ void rebootSystem() {
 <ol>
 <li><b><i>Authorization:</i></b> Added a verifyAuthorization function that prompts the user to enter an authorization code before critical commands are processed. </li>
 <li><b><i>Debounce Protection:</i></b> Added a debounceProtection function to ensure commands aren't processed too frequently.  </li>
-<li><b><i>Command Checks:</i></b> Wrapped critical commands (openDoor, closeDoor, and setting faultCondition) with authorization and debounce checks.  </li> 
+<li><b><i>Scheduled Reboots:</i></b> Reboots the system at regular intervals to prevent long-term instability. </li> 
+<li><b><i>Reboot System:</i></b> Resets critical variables and simulates a system reboot at predetermined intervals based on the loopCounter. </li> 
 </ol>
 These protections ensure that only authorized users can issue critical commands, and that these commands can't be spammed to disrupt the system.
 
@@ -535,3 +536,9 @@ https://github.com/rmahathi/NoRisk/assets/167225765/1c16051b-25c2-4bd5-9305-b34d
 
 ### Protection against Fault
 <p align='justify'> <b> A Faraday cage can be employed to shield sensitive components of a Bluetooth device from external electromagnetic interference. By enclosing the components in a conductive material, the cage blocks external static and non-static electric fields. The cage should be made from materials with high electrical conductivity such as copper, aluminum, or conductive polymers and must be properly grounded to ensure that any absorbed EMI is safely conducted away from the device. <br><br> The mesh size of the cage needs to be smaller than the wavelength of the frequencies to be blocked (in the case of Bluetooth, smaller than 12.5 cm for effective shielding at 2.4 GHz). The mesh size of the cage needs to be smaller than the wavelength of the frequencies to be blocked (in the case of Bluetooth, smaller than 12.5 cm for effective shielding at 2.4 GHz). Thorough testing in environments with known EMI sources ensures the effectiveness of the Faraday cage and other shielding measures. </b> </p>
+
+## Result
+<p align='justify'> <b> The system successfully demonstrated resilience to simulated faults, maintaining security and stability. It locked the door upon detecting unauthorized commands and rebooted as expected under controlled conditions. </b> </p>
+
+## Conclusions
+<p align='justify'> <b> The implementation of robust fault injection and protection techniques significantly improved system reliability and security. These measures effectively mitigated risks associated with random reboots and unauthorized access, ensuring the system's robustness in real-world scenarios. </b> </p>
