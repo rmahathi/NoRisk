@@ -149,6 +149,7 @@ https://github.com/rmahathi/NoRisk/assets/167225765/7a30f59d-298e-453f-b36c-02a2
 https://github.com/rmahathi/NoRisk/assets/167225765/da27fde9-fa0c-4feb-89d8-a6438b0a9bd8
 
 ## Application Video - Railway Gate Modulator 
+https://github.com/rmahathi/NoRisk/assets/167225765/d00ac2a1-f7e4-4a38-b726-e8fa557a6327
 
 # Fault Injection
 Fault injection is a testing technique used to evaluate the robustness and error-handling capabilities of a system by deliberately introducing faults or errors into it. The goal is to observe how the system behaves under fault conditions and to ensure that it can handle these situations gracefully. This technique is commonly used in software, hardware, and system testing to identify and fix potential weaknesses or vulnerabilities.
