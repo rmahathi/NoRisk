@@ -543,3 +543,7 @@ https://github.com/rmahathi/NoRisk/assets/167225765/1c16051b-25c2-4bd5-9305-b34d
 
 ## Conclusions
 <p align='justify'> <b> The implementation of robust fault injection and protection techniques significantly improved system reliability and security. These measures effectively mitigated risks associated with random reboots and unauthorized access, ensuring the system's robustness in real-world scenarios. </b> </p>
+
+## Presentation
+[bluetooth_automated_smart_access_system.pdf](https://github.com/user-attachments/files/15857803/presentation.pdf)
+
